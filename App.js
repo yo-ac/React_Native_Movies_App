@@ -1,14 +1,42 @@
+import { createTheme, ThemeProvider } from '@rneui/themed';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
+import {useState} from 'react'
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import Header from './src/components/layout/Header';
+import NavContainer from './src/containers/NavContainer';
 
-export default function App() {
+
+const theme = createTheme({
+  lightColors: {
+    primary: 'blue'
+  },
+  darkColors:{
+    primary: 'blue'
+  },
+  components:{
+    Button:{
+      raised: true
+    }
+  }
+})
+
+const App = () => {
+
+  const [details, setDetails] = useState([]);
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <ThemeProvider theme={theme}>
+      <SafeAreaProvider>
+        <StatusBar style="light"/>
+        <Header/>
+        <NavContainer details={details}/>
+      </SafeAreaProvider>
+    </ThemeProvider>
   );
 }
+
+export default App;
 
 const styles = StyleSheet.create({
   container: {
